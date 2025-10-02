@@ -94,3 +94,114 @@ set salary = 60000.00 where first_name = 'john';
 update employee set gender = 'O' where dept_id = 2;
 
 select *from employee where salary between 60000 and 80000;
+
+-- JOINS
+
+-- Employees with department names
+SELECT e.first_name, e.last_name, d.dept_name
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id;
+
+-- Departments with employee count (including those with 0 employees)
+SELECT d.dept_name, COUNT(e.emp_id) AS employee_count
+FROM department d
+LEFT JOIN employee e ON d.dept_id = e.dept_id
+GROUP BY d.dept_name;
+
+-- Projects with department names
+SELECT p.project_name, d.dept_name
+FROM project p
+JOIN department d ON p.dept_id = d.dept_id;
+
+-- Employees in departments located in San Francisco
+SELECT e.first_name, e.last_name
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+WHERE d.location = 'San Francisco';
+
+-- Departments with no projects
+SELECT d.dept_name
+FROM department d
+LEFT JOIN project p ON d.dept_id = p.dept_id
+WHERE p.project_id IS NULL;
+
+
+--  STRING & NUMERIC FUNCTIONS
+
+-- Full name of employees
+SELECT CONCAT(first_name, ' ', last_name) AS "Full Name"
+FROM employee;
+
+-- Convert dept_name to uppercase
+SELECT UPPER(dept_name) FROM department;
+
+-- First 3 characters of email
+SELECT SUBSTRING(email, 1, 3) FROM employee;
+
+-- Absolute value of -50000
+SELECT ABS(-50000);
+
+-- Round average salary to 2 decimals
+SELECT ROUND(AVG(salary), 2) AS avg_salary_rounded FROM employee;
+
+
+--  ADVANCED QUERIES
+
+-- First 3 employees by latest hire date
+SELECT * FROM employee
+ORDER BY hire_date DESC
+LIMIT 3;
+
+-- Pagination: employees 4–6 (page 2, 3 per page)
+SELECT * FROM employee
+ORDER BY emp_id
+LIMIT 3 OFFSET 3;
+
+-- IF for salary classification
+SELECT first_name,
+       IF(salary >= 70000, 'High', 'Low') AS salary_level
+FROM employee;
+
+-- CASE for project budget classification
+SELECT project_name,
+       CASE 
+           WHEN budget >= 60000 THEN 'Large'
+           WHEN budget >= 40000 THEN 'Medium'
+           ELSE 'Small'
+       END AS budget_category
+FROM project;
+
+-- Total project budget grouped by department
+SELECT dept_id, SUM(budget) AS total_budget
+FROM project
+GROUP BY dept_id;
+
+-- Employee with longest first name
+SELECT first_name
+FROM employee
+ORDER BY LENGTH(first_name) DESC
+LIMIT 1;
+
+-- Employees hired within last 90 days from March 22, 2025
+SELECT * FROM employee
+WHERE hire_date >= DATE_SUB('2025-03-22', INTERVAL 90 DAY);
+
+
+--  DELETION & CLEANUP
+
+-- Delete employees with salary < 60000
+DELETE FROM employee
+WHERE salary < 60000;
+
+-- Drop project table
+DROP TABLE project;
+
+-- Restore database from backup (example for MySQL CLI)
+-- NOTE: This step must be run in terminal, not inside SQL editor
+-- mysql -u root -p company_db < company_db_backup.sql
+
+-- After restore, check tables
+SHOW TABLES;
+
+-- Delete the DB after verification
+DROP DATABASE company_db;
