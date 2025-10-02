@@ -1,0 +1,109 @@
+/* --- General Page Styles --- */
+body {
+  background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* --- Game Container --- */
+#game-container {
+  background-color: #fff;
+  width: 320px;
+  padding: 30px 20px;
+  border: 3px solid #333;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Headings --- */
+#title {
+  color: #0077ff;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+#subtitle {
+  color: #d62828;
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* --- Input --- */
+#guess-input {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 2px solid #0077ff;
+  outline: none;
+  text-align: center;
+}
+
+#guess-input:focus {
+  border-color: #0096c7;
+  box-shadow: 0 0 5px #0096c7;
+}
+
+/* --- Submit Button --- */
+#submit-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#submit-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* --- Result and Attempts --- */
+#result {
+  margin-top: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#attempts {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #d62828;
+}
+
+/* --- Play Again Button --- */
+#play-again {
+  display: none;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#play-again:hover {
+  background-color: #019874;
+  transform: scale(1.05);
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 500px) {
+  #game-container {
+    width: 90%;
+  }
+}
